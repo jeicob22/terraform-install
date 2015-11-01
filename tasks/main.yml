@@ -1,13 +1,14 @@
 ---
 - name: Downloads Hashicorp's Terraform
   get_url: >
-    url="{{ install.download_location }}/terraform_{{ terraform.version }}_linux_{{ terraform.arch }}.zip"
+    url="{{ install.download_location }}/{{ terraform.version }}/terraform_{{ terraform.version }}_linux_{{ terraform.arch }}.zip"
     dest="/tmp/"
     mode=0755
   sudo: yes
   tags:
     - hashicorp
     - terraform
+
 
 - name: Downloads Hashicorp's Terraform
   unarchive: >

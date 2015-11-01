@@ -1,6 +1,6 @@
-# otto-install
+# terraform-install
 
-Installs [Hasicorp's Otto](https://ottoproject.io)
+Installs [Hasicorp's Terraform](https://terraform.io)
 
 
 
@@ -8,13 +8,13 @@ Installs [Hasicorp's Otto](https://ottoproject.io)
 ```yml
 
 ---
-otto:
+terraform:
   version: 0.1.2
   arch: amd64
 
 install:
   dir : /usr/local/bin
-  download_location: https://releases.hashicorp.com/otto/
+  download_location: https://releases.hashicorp.com/terraform/
 
 ```
 
@@ -29,11 +29,11 @@ Example Playbook
   gather_facts: true
 
   roles:
-    - marcelocorreia.otto-install
+    - marcelocorreia.terraform-install
 
   vars_files:
     - ../vars/tardis.yml
-    
+
 ```
 
 License

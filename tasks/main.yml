@@ -1,22 +1,40 @@
 ---
-- name: Installs Hashicorp's Terraform
+- name: Downloads Package
   get_url: >
-    url="{{ install.download_location }}/{{ terraform.version }}/terraform_{{ terraform.version }}_linux_{{ terraform.arch }}.zip"
-    dest="/tmp/"
+    url="{{ install.download_location}}/{{ app.version }}/{{ app.name }}_{{ app.version }}_{{ app.arch }}.zip"
+    dest="/tmp/{{ app.name }}_{{ app.version }}_{{ app.arch }}.zip"
     mode=0755
+    force={{ install.force_download | default(false)}}
   sudo: no
-
-
   tags:
     - hashicorp
     - terraform
     - install
+    - download
 
-
-- name: Downloads Hashicorp's Terraform
-  shell: unzip -u -d {{ install.dir }} /tmp/terraform_{{ terraform.version }}_linux_{{ terraform.arch }}.zip ; chmod 775 {{ install.dir }}/terraform*; chown root:staff {{ install.dir }}/terraform
+- name: Unpacks to location
+  unarchive: >
+    src=/tmp/{{ app.name }}_{{ app.version }}_{{ app.arch }}.zip
+    dest={{ install.dir }}
+    copy=no
+    mode=755
   sudo: yes
   tags:
     - hashicorp
     - terraform
     - install
+    - unarchive
+
+- name: Fix permissions on files (Workaround while waiting for 2.0)
+  file: path={{ install.dir }}/{{ item }}
+    owner={{ app.file_owner | default('root') }}
+    group={{ app.file_group | default('root') }}
+    mode=755
+  sudo: yes
+  with_items:
+    - "{{ install.file_list }}"
+  tags:
+    - hashicorp
+    - terraform
+    - install
+    - workaround

@@ -2,8 +2,6 @@
 app:
   name: terraform
   version: 0.6.6
-  arch: linux_amd64
-  file_group: vagrant
 
 install:
   dir : /usr/local/bin

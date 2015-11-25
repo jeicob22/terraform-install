@@ -9,7 +9,7 @@ Installs [Hasicorp's Terraform](https://terraform.io)
 
 ---
 terraform:
-  version: 0.1.2
+  version: 0.6.7
   arch: amd64
 
 install:

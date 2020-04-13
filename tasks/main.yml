@@ -7,6 +7,10 @@
     arch: darwin_amd64
   when: ansible_system == 'Darwin'
 
+- set_fact:
+    arch: linux_arm
+  when: ansible_architecture == 'armv7l'
+
 - name: "Downloads Package"
   get_url:
     url: "{{ install.download_location}}/{{ app.version }}/{{ app.name }}_{{ app.version }}_{{ arch }}.zip"
